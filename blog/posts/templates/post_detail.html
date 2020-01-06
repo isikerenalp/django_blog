@@ -1,0 +1,49 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="post_detail">
+  <div class="post">
+
+    {% if post.author == user %}
+      <td><p><a href="{% url 'posts:post_update' slug=post.slug %}">update this post</a></p></td>
+      <td><p><a href="{% url 'posts:post_delete' slug=post.slug %}">delete this post</a></p></td>
+    {% endif %}
+
+    <h1>{{ post.title }}</h1>
+    <img src="{{post.image.url}}" style="width: 888px;height:578px;">
+    <p>{{ post.body }}</p>
+    <p>{{ post.date }}</p>
+
+    {% if user.is_authenticated %}
+      <br> <br>
+      <h3> New Comment : </h3>
+      <form method="POST">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit">Add</button>
+      </form>
+      <br> <br>
+    {% else %}
+      <h4>Please log in to post a comment</h4>
+    {% endif %}
+
+    <h2> All comments for this post </h2>
+    {% for comment in post.comments.all %}
+      <br>
+      <div class="comment">
+          <strong>Name : {{ comment.author }}</strong>
+          <p>{{ comment.text|linebreaks }}</p>
+          <div class="date">Date : {{ comment.created_date }}</div>
+          {% if comment.author == user %}
+            <p>deneme</p>
+            <a href="{% url 'posts:comment_delete' id=comment.id %}">Delete this comment</a>
+          {% endif %}
+      </div>
+      <br>
+      {% empty %}
+        <p>No comments here yet</p>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

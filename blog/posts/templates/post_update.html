@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<style media="screen">
+  .post-form input, .post-form textarea{
+    display: block
+  }
+</style>
+<h1>Post Update</h1>
+ <form method="POST" class="post-form" enctype="multipart/form-data">
+   {% csrf_token %}
+     {{ form }}
+     <button type="submit" class="save btn btn-default">Update</button>
+ </form>
+{% endblock %}

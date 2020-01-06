@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>All the posts under category {{ category.name }}</h1>
+<div class="posts">
+  {% for post in posts %}
+  <h3> <a href="{% url 'posts:detail' slug=post.slug %}">{{ post.title }}</a> </h3>
+  <div class="post">
+    <p>{{ post.snippet }}</p>
+    <p>{{ post.date }}</p>
+    <p>added by {{ post.author.username }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>Post List</h1>
+<div class="posts">
+  {% for post in posts %}
+  <div class="post">
+    <h2><a href="{% url 'posts:detail' slug=post.slug %}">{{ post.title }}</a></h2>
+    <!-- <a href="{% url 'detail' ....
+        https://docs.djangoproject.com/en/3.0/intro/tutorial03/
+    -->
+    <p>{{ post.snippet }}</p>
+    <p>{{ post.date }}</p>
+    <p>Added by {{ post.author.username }}</p>
+    <p>Comments: {{ post.comments.count }} </p>
+    <p>Category : <a href="{% url 'posts:category_post' post.category.slug %}">{{post.category}}</a> </p>
+    {% if post.author == user %}
+        <td><p><a href="{% url 'posts:post_update' slug=post.slug %}">update</a></p></td>
+        <td><p><a href="{% url 'posts:post_delete' slug=post.slug %}">delete</a></p></td>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+{% endblock %}

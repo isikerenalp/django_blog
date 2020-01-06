@@ -1,0 +1,16 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<style media="screen">
+  .site-form input, .site-form textarea{
+    display: block
+  }
+</style>
+<h1>Post Create</h1>
+<form class="site-form" action="{% url 'posts:create_post' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form }}
+  <br>
+  <input type="submit" value="Create">
+</form>
+{% endblock %}
