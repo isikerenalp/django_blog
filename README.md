@@ -29,3 +29,5 @@ Kullanıcı Profili
 Gönderi beğenme , kullanıcı takip etme , mesajlaşma
 
     Not: Sayfada henüz herhangi bir tasarım yoktur :/
+    
+    Not-2 : Mail işlemlerinin çalışması için django_blog/blog/blog/settings.py ' de 131. satırdan sonrasını güncellemeniz gerekmektedir
